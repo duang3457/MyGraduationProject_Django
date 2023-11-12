@@ -1,0 +1,40 @@
+{% extends 'list.html' %}
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-success" href="/INCAR/add/" target="_self">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                新建INCAR参数
+            </a>
+        </div>
+        <div class="panel panel-default">
+      <div class="panel-heading">
+          <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+          参数列表
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th>参数名称</th>
+              <th>参数值</th>
+              <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in queryset %}
+            <tr>
+              <td>{{ obj.parameter }}</td>
+              <td>{{ obj.value }}</td>
+              <td>
+                  <a class="btn btn-primary btn-xs" href="/INCAR/{{ obj.id }}/edit/">编辑</a>
+                  <a class="btn btn-danger btn-xs" href="/INCAR/delete/?nid={{ obj.id }}">删除</a>
+              </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+{% endblock %}
+
+

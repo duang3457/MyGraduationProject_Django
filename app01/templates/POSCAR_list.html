@@ -1,0 +1,258 @@
+{% extends 'list.html' %}
+{% block content %}
+    <div class="container">
+   <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">POSCAR文件 : {{ elements }}</h3>
+  </div>
+  <div class="panel-body">
+      <form class="form-horizontal" enctype="multipart/form-data"  method="post">
+                    {% csrf_token %}
+          <!-- 上传多个文件 -->
+            <div style="font-size: 20px">上传文件：</div>
+            <input type="file"  id="myfile" name="POSCAR_files[]" multiple="multiple" />
+          <br>
+            <div id="div">
+            </div>
+           <input type="hidden" name="ele_new_length" id="ele_newLen"/>
+          <input type="hidden" name="ele" placeholder="">
+<style>
+    .el{
+        width: 60px;
+        margin-left: 5px;
+    }
+    .el_name{
+        width: 120px;
+        margin-left: 5px;
+    }
+</style>
+          <script>
+              //获取一个上传文件的扩展名
+            var myfile = document.getElementById('myfile');
+            var div = document.getElementById('div');
+            myfile.addEventListener("change", function() {
+                    //获取上传文件的文件名
+                    for(let i = 0; i < myfile.files.length; i++) {
+                        div.innerHTML = div.innerHTML +
+                        '<span>文件名：'
+                        + myfile.files[i].name  +
+                            '   新的物质化学式：' +
+                            '<input type="text" class="el_name" length="" width="100" name="ele_name'+i+'">'
+                            + '    改变元素：'
+                        + '</span>' +
+                            '<input type="text" class="el" length="" WIDTH="50" name="ele_new'+i+'0">' +
+                            '<input type="text" class="el" length="" SIZE="" name="ele_new'+i+'1">' +
+                            '<input type="text" class="el" length="" WIDTH="50" name="ele_new'+i+'2">' +
+                            '<input type="text" class="el" length="" WIDTH="50" name="ele_new'+i+'3">' +
+                            '<br>' +
+                            '<br>'
+                        ;
+                    }
+                   var obj=document.getElementById("ele_newLen");
+                   // alert(obj.length)
+                    obj.setAttribute("value", myfile.files.length);
+                })
+          </script>
+          <h4>统一修改：</h4>
+          <p>物质化学式：</p>
+          <input type="text" class="el" length="" WIDTH="50" name="ele_name_bat">
+          <p>元素修改：</p>
+          <input type="text" class="el" length="" WIDTH="50" name="ele_new_bat0">
+          <input type="text" class="el" length="" SIZE="" name="ele_new_bat1">
+          <input type="text" class="el" length="" WIDTH="50" name="ele_new_bat2">
+          <input type="text" class="el" length="" WIDTH="50" name="ele_new_bat3">
+          <input type="submit" class="upbut" value="更改元素并一键下载">
+        </form>
+   </div>
+  </div>
+    </div>
+<!--元素周期表部分-->
+    <div class="element-top">
+        <div class="column">
+            <div class="base-element column-element base-color" onclick="chg(this)">H</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">Li</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">Na</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">K</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">Rb</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">Cs</div>
+            <div class="base-element column-element color-1" onclick="chg(this)">Fr</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-2" onclick="chg(this)">Be</div>
+            <div class="base-element column-element color-2" onclick="chg(this)">Mg</div>
+            <div class="base-element column-element color-2" onclick="chg(this)">Ca</div>
+            <div class="base-element column-element color-2" onclick="chg(this)">Sr</div>
+            <div class="base-element column-element color-2" onclick="chg(this)">Ba</div>
+            <div class="base-element column-element color-2" onclick="chg(this)">Ra</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Sc</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Y</div>
+            <div class="base-element column-element color-3 font-ssm" >La-Lu</div>
+            <div class="base-element column-element color-3 font-ssm" >Ac-Lr</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Ti</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Zr</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Hf</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Rf</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">V</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Nb</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Ta</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Db</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Cr</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Mo</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">W</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Sg</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Mn</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Tc</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Re</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Bh</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Fe</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Ru</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Os</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Hs</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Co</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Rh</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Ir</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Mt</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Ni</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Pd</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Pt</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Ds</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Cu</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Ag</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Au</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Rg</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-3" onclick="chg(this)">Zn</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Cd</div>
+            <div class="base-element column-element color-3" onclick="chg(this)">Hg</div>
+            <div class="base-element column-element color-3 font-sm" onclick="chg(this)">Uub</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-4" onclick="chg(this)">B</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Al</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Ga</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Ln</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Tl</div>
+            <div class="base-element column-element color-4 font-sm" onclick="chg(this)">Uut</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element base-color" onclick="chg(this)">C</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Si</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Ge</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Sn</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Pb</div>
+            <div class="base-element column-element color-4 font-sm" onclick="chg(this)">Uuq</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element base-color" onclick="chg(this)">N</div>
+            <div class="base-element column-element base-color" onclick="chg(this)">P</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">As</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Sb</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Bi</div>
+            <div class="base-element column-element color-4 font-sm" onclick="chg(this)">Uup</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element base-color" onclick="chg(this)">O</div>
+            <div class="base-element column-element base-color" onclick="chg(this)">S</div>
+            <div class="base-element column-element base-color" onclick="chg(this)">Se</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Te</div>
+            <div class="base-element column-element color-4" onclick="chg(this)">Po</div>
+            <div class="base-element column-element color-4 font-sm" onclick="chg(this)">Uuh</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-5" onclick="chg(this)">F</div>
+            <div class="base-element column-element color-5" onclick="chg(this)">Cl</div>
+            <div class="base-element column-element color-5" onclick="chg(this)">Br</div>
+            <div class="base-element column-element color-5" onclick="chg(this)">I</div>
+            <div class="base-element column-element color-5" onclick="chg(this)">At</div>
+            <div class="base-element column-element color-7 font-sm" onclick="chg(this)">Uus</div>
+        </div>
+        <div class="column">
+            <div class="base-element column-element color-6" onclick="chg(this)">He</div>
+            <div class="base-element column-element color-6" onclick="chg(this)">Ne</div>
+            <div class="base-element column-element color-6" onclick="chg(this)">Ar</div>
+            <div class="base-element column-element color-6" onclick="chg(this)">Kr</div>
+            <div class="base-element column-element color-6" onclick="chg(this)">Xe</div>
+            <div class="base-element column-element color-6" onclick="chg(this)">Rn</div>
+            <div class="base-element column-element color-6 font-sm" onclick="chg(this)">Uuo</div>
+        </div>
+    </div>
+
+    <div class="element-bottom">
+        <div class="line">
+            <div class="base-element line-element color-8" onclick="chg(this)">La</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Ce</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Pr</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Nd</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Pm</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Sm</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Eu</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Gd</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Tb</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Dy</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Ho</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Er</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Tm</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Yb</div>
+            <div class="base-element line-element color-8" onclick="chg(this)">Lu</div>
+        </div>
+        <div class="line">
+            <div class="base-element line-element color-9" onclick="chg(this)">Ac</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Th</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Pa</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">U</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Np</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Pu</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Am</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Cm</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Bk</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Cf</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Es</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Fm</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Md</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">No</div>
+            <div class="base-element line-element color-9" onclick="chg(this)">Lr</div>
+        </div>
+    </div>
+<script >
+    function chg(obj){
+        if(obj.className === "base-element line-element color-9"
+            || obj.className === "base-element line-element color-8"
+            || obj.className === "base-element line-element chg-color")
+        {
+            if (obj.className !== "base-element line-element chg-color") {
+                obj.oldClass = obj.className; // 暂存原来的class，用于恢复
+                obj.className = "base-element line-element chg-color";
+            } else if (obj.oldClass) {
+                obj.className = obj.oldClass; // 暂存原来的class，用于恢复
+            }
+        }
+        else{
+            if (obj.className !== "base-element column-element chg-color") {
+                obj.oldClass = obj.className; // 暂存原来的class，用于恢复
+                obj.className = "base-element column-element chg-color";
+            } else if (obj.oldClass) {
+                obj.className = obj.oldClass; // 暂存原来的class，用于恢复
+            }
+         }
+    }
+</script>
+{% endblock %}
